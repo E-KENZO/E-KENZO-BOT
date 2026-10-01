@@ -11,8 +11,6 @@ app.use(cors());
 app.use(express.json());
 
 const bot = new TelegramBot(process.env.BOT_TOKEN);
-const bot = new TelegramBot(process.env.BOT_TOKEN);
-
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
