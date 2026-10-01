@@ -16,8 +16,6 @@ bot.getMe()
     console.log("Telegram Bot Connected:", me.username);
   })
   .catch((err) => {
-    console.log("Telegram Bot Error:", err.message);
-  });
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
