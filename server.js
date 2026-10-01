@@ -11,6 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 const bot = new TelegramBot(process.env.BOT_TOKEN);
+bot.getMe()
+  .then((me) => {
+    console.log("Telegram Bot Connected:", me.username);
+  })
+  .catch((err) => {
+    console.log("Telegram Bot Error:", err.message);
+  });
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
