@@ -59,6 +59,8 @@ app.post("/order", upload.single("receipt"), async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server Running...");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server Running on ${PORT}`);
 });
