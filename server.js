@@ -11,17 +11,14 @@ app.use(cors());
 app.use(express.json());
 
 const bot = new TelegramBot(process.env.BOT_TOKEN);
-bot.getMe()
-  .then((me) => {
-    console.log("Telegram Bot Connected:", me.username);
-  })
-  .catch((err) => {
+
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
     "🤖 E-KENZO Bot is online!\n\n✅ Bot is working."
   );
 });
+
 app.post("/order", upload.single("receipt"), async (req, res) => {
   try {
     const {
@@ -59,13 +56,11 @@ app.post("/order", upload.single("receipt"), async (req, res) => {
     });
 
   } catch (err) {
-
     console.log(err);
 
     res.status(500).json({
       success: false
     });
-
   }
 });
 
