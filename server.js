@@ -12,6 +12,16 @@ app.use(express.json());
 
 const bot = new TelegramBot(process.env.BOT_TOKEN);
 
+// Check Telegram connection
+bot.getMe()
+  .then((me) => {
+    console.log("Telegram Bot Connected:", me.username);
+  })
+  .catch((err) => {
+    console.log("Telegram Bot Error:", err.message);
+  });
+
+// /start command
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
@@ -19,6 +29,7 @@ bot.onText(/\/start/, (msg) => {
   );
 });
 
+// Receive orders from website
 app.post("/order", upload.single("receipt"), async (req, res) => {
   try {
     const {
@@ -39,7 +50,10 @@ app.post("/order", upload.single("receipt"), async (req, res) => {
 👤 Roblox: ${roblox}
 📱 Telegram: ${telegram}`;
 
-    await bot.sendMessage(process.env.CHAT_ID, message);
+    await bot.sendMessage(
+      process.env.CHAT_ID,
+      message
+    );
 
     if (req.file) {
       await bot.sendPhoto(
@@ -64,6 +78,7 @@ app.post("/order", upload.single("receipt"), async (req, res) => {
   }
 });
 
+// Start server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
